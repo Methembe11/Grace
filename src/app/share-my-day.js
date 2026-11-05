@@ -1,8 +1,8 @@
-﻿"use client";
+"use client";
 
 import { useState } from "react";
 
-const SITE_URL = "https://grace-virid-six.vercel.app";
+const SITE_URL = "https://grace-bumblebee.vercel.app";
 const PHOTO_URL = "/images/grace-01.jpeg";
 
 async function createStatusImage() {
@@ -77,7 +77,7 @@ async function createStatusImage() {
   context.font = "400 23px Arial, sans-serif";
   context.letterSpacing = "0px";
   context.fillStyle = "#fff8f2";
-  context.fillText("grace-virid-six.vercel.app", width / 2, 1750);
+  context.fillText("grace-bumblebee.vercel.app", width / 2, 1750);
 
   return await new Promise((resolve, reject) => {
     canvas.toBlob((blob) => blob ? resolve(blob) : reject(new Error("The status image could not be saved.")), "image/png");
@@ -181,7 +181,7 @@ export default function ShareMyDay() {
               <p>A day to celebrate Gracey</p>
               <small>From your Giraffe, with love.</small>
             </div>
-            <div className="status-preview-bottom"><span>\u2726　\u2661　\u2726</span><small>grace-virid-six.vercel.app</small></div>
+            <div className="status-preview-bottom"><span>\u2726 \u2661 \u2726</span><small>grace-bumblebee.vercel.app</small></div>
           </div>
 
           <div className="share-controls">
