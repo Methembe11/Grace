@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "powershell -NoProfile -ExecutionPolicy Bypass -File .\\scripts\\next.ps1 -Mode dev",
-    "build": "powershell -NoProfile -ExecutionPolicy Bypass -File .\\scripts\\next.ps1 -Mode build",
-    "start": "powershell -NoProfile -ExecutionPolicy Bypass -File .\\scripts\\next.ps1 -Mode start",
+    "dev": "node ./scripts/next.js dev",
+    "build": "node ./scripts/next.js build",
+    "start": "node ./scripts/next.js start",
     "lint": "node ./node_modules/eslint/bin/eslint.js"
   },
   "dependencies": {
