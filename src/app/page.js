@@ -27,7 +27,7 @@ const littleThings = [
 ];
 
 export default function Home() {
-  const [opened, setOpened] = useState(false);
+  const [surpriseStage, setSurpriseStage] = useState(null);
   const [activePhoto, setActivePhoto] = useState(null);
   const [showConfetti, setShowConfetti] = useState(false);
 
@@ -49,13 +49,60 @@ export default function Home() {
           <motion.p className="eyebrow" initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>A LITTLE SOMETHING FOR SOMEONE SPECIAL</motion.p>
           <motion.h1 initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.9, delay: 0.35 }}>For my<br /><em>Bumblebee.</em></motion.h1>
           <motion.p className="hero-sub" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.8 }}>Some people make ordinary days<br className="desktop-break" /> feel a little more special.</motion.p>
-          <motion.button className="open-gift" onClick={() => { setOpened(true); document.getElementById("birthday")?.scrollIntoView({ behavior: "smooth" }); }} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1 }}>
+          <motion.button className="open-gift" onClick={() => setSurpriseStage("envelope")} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1 }}>
             <span>OPEN YOUR LITTLE SURPRISE</span><b>↗</b>
           </motion.button>
         </div>
         <div className="hero-foot"><span>THE GIRAFFE & THE BUMBLEBEE</span><span>SCROLL A LITTLE ↓</span></div>
         <span className="side-note">A FRIENDSHIP IN FULL BLOOM</span>
       </section>
+
+      <AnimatePresence>
+        {surpriseStage && (
+          <motion.div className="surprise-overlay" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} role="dialog" aria-modal="true" aria-label="Your birthday surprise">
+            <button className="surprise-close" onClick={() => setSurpriseStage(null)} aria-label="Close surprise">&times;</button>
+            <AnimatePresence mode="wait">
+              {surpriseStage === "envelope" && (
+                <motion.div className="surprise-scene" key="envelope" initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, scale: .96 }} transition={{ duration: .45 }}>
+                  <p className="surprise-eyebrow">A LITTLE SOMETHING, JUST FOR YOU</p>
+                  <h2 className="surprise-title">A note for my <em>Bumblebee.</em></h2>
+                  <div className="surprise-envelope-wrap">
+                    <div className="surprise-envelope">
+                      <div className="envelope-letter"><span>For Gracey</span><b>&#9825;</b></div>
+                      <div className="envelope-pocket"></div>
+                      <div className="envelope-flap"></div>
+                      <div className="envelope-seal">&#128029;</div>
+                    </div>
+                  </div>
+                  <p className="surprise-instruction">There&apos;s a little something waiting inside.</p>
+                  <button className="surprise-action" onClick={() => setSurpriseStage("gift")}>OPEN YOUR LETTER <span>&#8599;</span></button>
+                </motion.div>
+              )}
+              {surpriseStage === "gift" && (
+                <motion.div className="surprise-scene" key="gift" initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, scale: .96 }} transition={{ duration: .45 }}>
+                  <p className="surprise-eyebrow">SEALED WITH A LITTLE LOVE</p>
+                  <h2 className="surprise-title">And there&apos;s a gift <em>for you.</em></h2>
+                  <motion.button className="surprise-gift" onClick={() => setSurpriseStage("greeting")} whileHover={{ y: -6, rotate: -2 }} whileTap={{ scale: .96 }} aria-label="Open your birthday gift">
+                    <span className="gift-lid"></span><span className="gift-box"></span><span className="gift-ribbon-vertical"></span><span className="gift-ribbon-horizontal"></span><span className="gift-bow">&#9825;</span><span className="gift-spark gift-spark-one">&#10022;</span><span className="gift-spark gift-spark-two">&#10023;</span>
+                  </motion.button>
+                  <p className="surprise-instruction">Tap the little gift to see what&apos;s inside.</p>
+                  <button className="surprise-action" onClick={() => setSurpriseStage("greeting")}>OPEN YOUR GIFT <span>&#8599;</span></button>
+                </motion.div>
+              )}
+              {surpriseStage === "greeting" && (
+                <motion.div className="surprise-scene surprise-greeting" key="greeting" initial={{ opacity: 0, scale: .92 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, y: -12 }} transition={{ duration: .6 }}>
+                  <motion.div className="greeting-confetti" aria-hidden="true">&#10022;?&#9825;?&#10022;</motion.div>
+                  <p className="surprise-eyebrow">TODAY IS YOUR DAY</p>
+                  <h2 className="surprise-title">Hello,<br /><em>Bumblebeeee!</em></h2>
+                  <p className="surprise-message">Happy birthday, Gracey. I made a little corner of the internet just to celebrate you. I hope it makes you smile. &#10084;</p>
+                  <div className="surprise-signature">From your Giraffe &#129430;</div>
+                  <button className="surprise-action" onClick={() => { setSurpriseStage(null); document.getElementById("birthday")?.scrollIntoView({ behavior: "smooth" }); }}>LET&apos;S CELEBRATE <span>&#8599;</span></button>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <section className="birthday-section section-pad" id="birthday">
         <div className="section-kicker"><span>01 / THE BIG DAY</span><span>FOR GRACEY ♡</span></div>
